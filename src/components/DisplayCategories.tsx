@@ -25,8 +25,7 @@ const DisplayCategories = () => {
             <DisplayCard
               key={category.id}
               label={category.label}
-              amount={category.amount}
-              color="gray"
+              amount={category.amount} isBudget={false}              
             />
           ))}
         </SimpleGrid>
