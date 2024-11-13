@@ -1,12 +1,28 @@
 import { useContext } from "react";
-import { SimpleGrid, Text, Button, Box, Center, Stack } from "@mantine/core";
+import { SimpleGrid, Text, Button, Box, Center, Stack, Card } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import DisplayCard from "./DisplayCard";
 import CategoriesContext from "../store/CategoriesContext";
 
 const DisplayCategories = () => {
   const { categories } = useContext(CategoriesContext) || { categories: [] };
   const navigate = useNavigate();
+
+  // Example: Assuming 'isBudget' is based on the presence of categories with a specific 'isBudget' property
+  const isBudget = categories.length > 0 && categories.some((category) => category.isBudget);
+
+  const styles = isBudget
+     
+    ?{
+        backgroundColor: "rgba(239, 68, 68, 0.1)", // light red background
+        color: "#ef4444", // red text and border
+        boxShadow: "0 4px 12px rgba(239, 68, 68, 0.4)", // red shadow
+      }
+     : {
+        backgroundColor: "rgba(34, 197, 94, 0.1)", // light green background
+        color: "#22c55e", // green text and border
+        boxShadow: "0 4px 12px rgba(34, 197, 94, 0.4)", // green shadow
+      }
+      ;
 
   return (
     <Box
@@ -20,13 +36,25 @@ const DisplayCategories = () => {
       })}
     >
       {categories && categories.length > 0 ? (
-        <SimpleGrid cols={4} spacing="lg" style={{ justifyContent: "center" }}>
+        <SimpleGrid cols={4} spacing="lg" sx={{ justifyContent: "center" }}>
           {categories.map((category) => (
-            <DisplayCard
+            <Card
               key={category.id}
-              label={category.label}
-              amount={category.amount} isBudget={false}              
-            />
+              sx={(theme) => ({
+                backgroundColor: styles.backgroundColor,
+                color: styles.color,
+                boxShadow: styles.boxShadow,
+                borderRadius: theme.radius.md,
+                padding: theme.spacing.md,
+              })}
+            >
+              <Text size="xl" weight={500}>
+                {category.label}
+              </Text>
+              <Text size="md" color="dimmed">
+                ${category.amount}
+              </Text>
+            </Card>
           ))}
         </SimpleGrid>
       ) : (
