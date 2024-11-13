@@ -130,7 +130,7 @@ const MainAppShell = () => {
                       height: "100%",
                     }}
                   >
-                    <img src="././public/logo.png" alt="Expense Tracker" style={{ height: "50px" }}/>
+                    <CgCalculator />
                     <Text ml={10}>Expense Tracker</Text>
                   </div>
                   <DarkLightThemeButton />
